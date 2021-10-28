@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flask-config
+  namespace: frontier-analytics
+data:
+  settings.cfg: |-
+    DEBUG: "False"
+    SECRET_KEY: "CERN"
+    UPLOAD_FOLDER: "/home/frntmon/ParquetDirectory"
+    ANALYTICS_CONFIG_FILE: "/Analytics/FrontierData/Config/configuration.txt"
+    STATUS: "{'PENDING', 'PROGRESS'}"

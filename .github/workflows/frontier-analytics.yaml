@@ -1,7 +1,7 @@
-name: Update Frontier Image Reference
+name: Update Frontier Analytics Image Reference
 on:
   repository_dispatch:
-    types: gitops-frontier-app-trigger
+    types: gitops-frontier-analytics-trigger
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -11,7 +11,7 @@ jobs:
       - name: Update Version In Checked-Out Code
         if: ${{ github.event.client_payload.sha }}
         run: |
-          sed -i "s@\(docker.io/atlasanalyticsservice/frontier:\).*@ docker.io/atlasanalyticsservice/frontier:${{ github.event.client_payload.sha }}@" ${GITHUB_WORKSPACE}/deploy/prod/deployment.yaml
+          sed -i "s@\(docker.io/atlasanalyticsservice/frontier_analytics:\).*@ docker.io/atlasanalyticsservice/frontier_analytics:${{ github.event.client_payload.sha }}@" ${GITHUB_WORKSPACE}/deploy/prod/deployment.yaml
       - name: Commit The New Image Reference
         uses: stefanzweifel/git-auto-commit-action@v4
         if: ${{ github.event.client_payload.sha }}

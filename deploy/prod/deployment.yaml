@@ -17,8 +17,7 @@ spec:
     spec:
       containers:
         - name: web-server
-          image: atlasanalyticsservice/frontier:latest
-          # image: gitlab-registry.cern.ch/ivukotic/frontier-analytics/fntweb:latest
+          image: docker.io/atlasanalyticsservice/frontier:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
@@ -31,24 +30,12 @@ spec:
             - name: PYTHONUNBUFFERED
               value: "0"
             - name: FrontierAnalyticsApp_SETTINGS
-              valueFrom:
-                configMapKeyRef:
-                  name: web-server-config-path
-                  key: web-server-config
-            - name: CELERY_BROKER_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: redis-host-config
-                  key: redis-host
-            - name: CELERY_RESULT_BACKEND
-              valueFrom:
-                configMapKeyRef:
-                  name: redis-host-config
-                  key: redis-host
+              value: "/home/frntmon/settings.cfg"
+            - name: CELERY_URL
+              value: "redis://redis-master.frontier-analytics.svc.cluster.local:6379"
           volumeMounts:
             - name: config-volume
-              mountPath: "/home/frntmon/settings.cfg"
-              subPath: settings.cfg
+              mountPath: "/home/frntmon/"
             - name: analytics-config-volume
               mountPath: "/Analytics/FrontierData/Config"
             - name: data-volume
@@ -57,8 +44,7 @@ spec:
               mountPath: "/home/frntmon/Files"
 
         - name: celery-server
-          # image: gitlab-registry.cern.ch/ivukotic/frontier-analytics/fntdata:latest
-          image: atlasanalyticsservice/frontier_analytics:latest
+          image: docker.io/atlasanalyticsservice/frontier_analytics:latest
           imagePullPolicy: Always
           resources:
             requests:
@@ -69,20 +55,9 @@ spec:
             - name: PYTHONUNBUFFERED
               value: "0"
             - name: CONFIG_FILE
-              valueFrom:
-                configMapKeyRef:
-                  name: analytics-config-path
-                  key: analytics-config
-            - name: CELERY_BROKER_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: redis-host-config
-                  key: redis-host
-            - name: CELERY_RESULT_BACKEND
-              valueFrom:
-                configMapKeyRef:
-                  name: redis-host-config
-                  key: redis-host
+              value: "/home/frntmon/celery-queue/configs/configuration.txt"
+            - name: CELERY_URL
+              value: "redis://redis-master.frontier-analytics.svc.cluster.local:6379"
           volumeMounts:
             - name: analytics-config-volume
               mountPath: "/home/frntmon/celery-queue/configs"
@@ -90,8 +65,6 @@ spec:
               mountPath: "/home/frntmon/Files"
             - name: data-volume
               mountPath: "/home/frntmon/ParquetDirectory"
-      imagePullSecrets:
-        - name: regcred
       volumes:
         - name: config-volume
           configMap:
