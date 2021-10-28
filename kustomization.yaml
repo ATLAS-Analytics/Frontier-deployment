@@ -1,0 +1,14 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: frontier-latest
+  namespace: flux-system
+spec:
+  interval: 5m0s
+  path: ./deploy/prod
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: frontier-latest
+
