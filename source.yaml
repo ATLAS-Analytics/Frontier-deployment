@@ -1,0 +1,12 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: frontier-latest
+  namespace: flux-system
+spec:
+  interval: 3m0s
+  ref:
+    branch: main
+  url: https://github.com/ATLAS-Analytics/Frontier-deployment
+
