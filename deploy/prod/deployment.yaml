@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: web-server
-          image: docker.io/atlasanalyticsservice/frontier:latest
+          image:  docker.io/atlasanalyticsservice/frontier:fc94ea362a10fb4692569d3a3208153ee3776f7f
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
