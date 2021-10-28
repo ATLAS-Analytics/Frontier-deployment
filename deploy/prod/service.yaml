@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontier-analytics-service
+  namespace: frontier-analytics
+  labels:
+    app: frontier-analytics
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8080
+      targetPort: 5000
+  selector:
+    app: frontier-analytics
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: frontier-analytics-ingress
+  namespace: frontier-analytics
+  labels:
+    app: frontier-analytics-service
+  annotations:
+    kubernetes.io/ingress.class: slate
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  tls:
+    - hosts:
+        - frontier.uc.ssl-hep.org
+      secretName: sxfe-cert
+  rules:
+    - host: frontier.uc.ssl-hep.org
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: frontier-analytics-service
+              servicePort: 8080

@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontier-analytics-deployment
+  namespace: frontier-analytics
+  labels:
+    app: frontier-analytics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontier-analytics
+  template:
+    metadata:
+      labels:
+        app: frontier-analytics
+    spec:
+      containers:
+        - name: web-server
+          image: atlasanalyticsservice/frontier:latest
+          # image: gitlab-registry.cern.ch/ivukotic/frontier-analytics/fntweb:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          resources:
+            requests:
+              memory: "16Gi"
+            limits:
+              memory: "16Gi"
+          env:
+            - name: PYTHONUNBUFFERED
+              value: "0"
+            - name: FrontierAnalyticsApp_SETTINGS
+              valueFrom:
+                configMapKeyRef:
+                  name: web-server-config-path
+                  key: web-server-config
+            - name: CELERY_BROKER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: redis-host-config
+                  key: redis-host
+            - name: CELERY_RESULT_BACKEND
+              valueFrom:
+                configMapKeyRef:
+                  name: redis-host-config
+                  key: redis-host
+          volumeMounts:
+            - name: config-volume
+              mountPath: "/home/frntmon/settings.cfg"
+              subPath: settings.cfg
+            - name: analytics-config-volume
+              mountPath: "/Analytics/FrontierData/Config"
+            - name: data-volume
+              mountPath: "/home/frntmon/ParquetDirectory"
+            - name: coolr-volume
+              mountPath: "/home/frntmon/Files"
+
+        - name: celery-server
+          # image: gitlab-registry.cern.ch/ivukotic/frontier-analytics/fntdata:latest
+          image: atlasanalyticsservice/frontier_analytics:latest
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "16Gi"
+            limits:
+              memory: "16Gi"
+          env:
+            - name: PYTHONUNBUFFERED
+              value: "0"
+            - name: CONFIG_FILE
+              valueFrom:
+                configMapKeyRef:
+                  name: analytics-config-path
+                  key: analytics-config
+            - name: CELERY_BROKER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: redis-host-config
+                  key: redis-host
+            - name: CELERY_RESULT_BACKEND
+              valueFrom:
+                configMapKeyRef:
+                  name: redis-host-config
+                  key: redis-host
+          volumeMounts:
+            - name: analytics-config-volume
+              mountPath: "/home/frntmon/celery-queue/configs"
+            - name: coolr-volume
+              mountPath: "/home/frntmon/Files"
+            - name: data-volume
+              mountPath: "/home/frntmon/ParquetDirectory"
+      imagePullSecrets:
+        - name: regcred
+      volumes:
+        - name: config-volume
+          configMap:
+            name: flask-config
+        - name: analytics-config-volume
+          secret:
+            secretName: analytics-config
+            items:
+              - key: config
+                path: configuration.txt
+        - name: coolr-volume
+          emptyDir: {}
+        - name: data-volume
+      nodeSelector:
+        nologs: "false"

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-server-config-path
+  namespace: frontier-analytics
+data:
+  web-server-config: /home/frntmon/settings.cfg
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: analytics-config-path
+  namespace: frontier-analytics
+data:
+  analytics-config: /home/frntmon/celery-queue/configs/configuration.txt
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-host-config
+  namespace: frontier-analytics
+data:
+  redis-host: redis://redis-master.frontier-analytics.svc.cluster.local:6379
