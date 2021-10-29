@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontier-analytics-deployment
+  name: frontier-analytics
   namespace: frontier-analytics
   labels:
     app: frontier-analytics
@@ -17,13 +17,13 @@ spec:
     spec:
       containers:
         - name: web-server
-          image:  docker.io/atlasanalyticsservice/frontier:00a5da97aab35f23f51120f433cb5ff55ab3fcd1
+          image: docker.io/atlasanalyticsservice/frontier:00a5da97aab35f23f51120f433cb5ff55ab3fcd1
           command:
-            - "sleep"
-            # - "python3"
+            # - "sleep"
+            - "python3"
           args:
-            - "3600"
-            # - "/app/FrontierAnalyticsApp.py"
+            # - "3600"
+            - "/app/FrontierAnalyticsApp.py"
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
