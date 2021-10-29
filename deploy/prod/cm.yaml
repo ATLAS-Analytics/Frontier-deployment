@@ -5,8 +5,8 @@ metadata:
   namespace: frontier-analytics
 data:
   settings.cfg: |-
-    DEBUG: "False"
-    SECRET_KEY: "CERN"
-    UPLOAD_FOLDER: "/app/ParquetDirectory"
-    ANALYTICS_CONFIG_FILE: "/Analytics/FrontierData/Config/configuration.txt"
-    STATUS: "{'PENDING', 'PROGRESS'}"
+    DEBUG="False"
+    SECRET_KEY="CERN"
+    UPLOAD_FOLDER="/app/ParquetDirectory"
+    ANALYTICS_CONFIG_FILE="/Analytics/FrontierData/Config/configuration.txt"
+    STATUS="{'PENDING', 'PROGRESS'}"
