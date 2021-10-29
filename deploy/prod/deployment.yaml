@@ -23,7 +23,7 @@ spec:
             # - "python3"
           args:
             - "3600"
-            # - "/FrontierAnalyticsApp.py"
+            # - "/app/FrontierAnalyticsApp.py"
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
@@ -36,12 +36,12 @@ spec:
             - name: PYTHONUNBUFFERED
               value: "0"
             - name: FrontierAnalyticsApp_SETTINGS
-              value: "/settings.cfg"
+              value: "/etc/frontier/settings.cfg"
             - name: CELERY_URL
               value: "redis://redis-master.frontier-analytics.svc.cluster.local:6379"
           volumeMounts:
             - name: config-volume
-              mountPath: "/"
+              mountPath: "/etc/frontier"
             - name: analytics-config-volume
               mountPath: "/Analytics/FrontierData/Config"
             - name: data-volume
