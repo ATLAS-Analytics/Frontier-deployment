@@ -50,7 +50,7 @@ spec:
               mountPath: "/home/frntmon/Files"
 
         - name: celery-server
-          image: docker.io/atlasanalyticsservice/frontier_analytics:5f20dcc14add0e920964ad3b3c3dfedc727c411c
+          image:  docker.io/atlasanalyticsservice/frontier_analytics:7295647eb37dbc8e196a8d18da2b181013a77285
           imagePullPolicy: Always
           resources:
             requests:
