@@ -17,13 +17,13 @@ spec:
     spec:
       containers:
         - name: web-server
-          image:   docker.io/atlasanalyticsservice/frontier:b46f8331510ecc546b8fb182a455537e1f25987f
+          image: docker.io/atlasanalyticsservice/frontier:b46f8331510ecc546b8fb182a455537e1f25987f
           command:
             - "sleep"
             # - "python3"
           args:
             - "3600"
-            # - "/home/frntmon/FrontierAnalyticsApp.py"
+            # - "/FrontierAnalyticsApp.py"
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
@@ -36,21 +36,21 @@ spec:
             - name: PYTHONUNBUFFERED
               value: "0"
             - name: FrontierAnalyticsApp_SETTINGS
-              value: "/home/frntmon/settings.cfg"
+              value: "/settings.cfg"
             - name: CELERY_URL
               value: "redis://redis-master.frontier-analytics.svc.cluster.local:6379"
           volumeMounts:
             - name: config-volume
-              mountPath: "/home/frntmon/"
+              mountPath: "/"
             - name: analytics-config-volume
               mountPath: "/Analytics/FrontierData/Config"
             - name: data-volume
-              mountPath: "/home/frntmon/ParquetDirectory"
+              mountPath: "/ParquetDirectory"
             - name: coolr-volume
-              mountPath: "/home/frntmon/Files"
+              mountPath: "/Files"
 
         - name: celery-server
-          image:  docker.io/atlasanalyticsservice/frontier_analytics:7295647eb37dbc8e196a8d18da2b181013a77285
+          image: docker.io/atlasanalyticsservice/frontier_analytics:7295647eb37dbc8e196a8d18da2b181013a77285
           imagePullPolicy: Always
           resources:
             requests:
