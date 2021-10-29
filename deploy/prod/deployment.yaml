@@ -18,6 +18,10 @@ spec:
       containers:
         - name: web-server
           image: docker.io/atlasanalyticsservice/frontier:latest
+          command:
+            - "python3"
+          args:
+            - "/home/frntmon/FrontierAnalyticsApp.py"
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
