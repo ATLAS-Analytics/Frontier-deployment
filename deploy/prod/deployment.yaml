@@ -19,11 +19,11 @@ spec:
         - name: web-server
           image: docker.io/atlasanalyticsservice/frontier:301d09848d0a724b0499b9066cb307ee4484e709
           command:
-            # - "sleep"
-            - "python3"
+            - "sleep"
+            # - "python3"
           args:
-            # - "3600"
-            - "/app/FrontierAnalyticsApp.py"
+            - "3600"
+            # - "/app/FrontierAnalyticsApp.py"
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
@@ -45,7 +45,7 @@ spec:
             - name: analytics-config-volume
               mountPath: "/Analytics/FrontierData/Config"
             - name: data-volume
-              mountPath: "/ParquetDirectory"
+              mountPath: "/app/ParquetDirectory"
             - name: coolr-volume
               mountPath: "/Files"
 
@@ -70,7 +70,7 @@ spec:
             - name: coolr-volume
               mountPath: "/home/frntmon/Files"
             - name: data-volume
-              mountPath: "/home/frntmon/ParquetDirectory"
+              mountPath: "/app/ParquetDirectory"
       volumes:
         - name: config-volume
           configMap:

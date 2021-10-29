@@ -7,6 +7,6 @@ data:
   settings.cfg: |-
     DEBUG: "False"
     SECRET_KEY: "CERN"
-    UPLOAD_FOLDER: "/home/frntmon/ParquetDirectory"
+    UPLOAD_FOLDER: "/app/ParquetDirectory"
     ANALYTICS_CONFIG_FILE: "/Analytics/FrontierData/Config/configuration.txt"
     STATUS: "{'PENDING', 'PROGRESS'}"
