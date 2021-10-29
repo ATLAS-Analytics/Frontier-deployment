@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: web-server
-          image: docker.io/atlasanalyticsservice/frontier:latest
+          image: docker.io/atlasanalyticsservice/frontier:f78b3d45a3934e8b29e09589da7282101df7aba3
           command:
             - "python3"
           args:
@@ -48,7 +48,7 @@ spec:
               mountPath: "/home/frntmon/Files"
 
         - name: celery-server
-          image: docker.io/atlasanalyticsservice/frontier_analytics:latest
+          image: docker.io/atlasanalyticsservice/frontier_analytics:5f20dcc14add0e920964ad3b3c3dfedc727c411c
           imagePullPolicy: Always
           resources:
             requests:
