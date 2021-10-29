@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: web-server
-          image: docker.io/atlasanalyticsservice/frontier:00a5da97aab35f23f51120f433cb5ff55ab3fcd1
+          image: docker.io/atlasanalyticsservice/frontier:301d09848d0a724b0499b9066cb307ee4484e709
           command:
             # - "sleep"
             - "python3"
