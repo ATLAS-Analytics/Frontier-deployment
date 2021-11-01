@@ -61,16 +61,16 @@ spec:
             - name: PYTHONUNBUFFERED
               value: "0"
             - name: CONFIG_FILE
-              value: "/home/frntmon/celery-queue/configs/configuration.txt"
+              value: "/Analytics/FrontierData/Config/configuration.txt"
             - name: CELERY_URL
               value: "redis://redis-master.frontier-analytics.svc.cluster.local:6379"
           volumeMounts:
             - name: analytics-config-volume
-              mountPath: "/home/frntmon/celery-queue/configs"
-            - name: coolr-volume
-              mountPath: "/home/frntmon/Files"
+              mountPath: "/Analytics/FrontierData/Config"
             - name: data-volume
               mountPath: "/app/ParquetDirectory"
+            - name: coolr-volume
+              mountPath: "/Files"
       volumes:
         - name: config-volume
           configMap:
