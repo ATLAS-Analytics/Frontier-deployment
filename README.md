@@ -27,3 +27,8 @@ flux create source git frontier-latest \
 flux create kustomization frontier-latest \
 --source=frontier-latest \
 --path="./deploy/prod/" --prune=false --interval=5m
+
+
+flux reconcile kustomization  --with-source frontier-latest
+
+flux get kustomizations --watch
