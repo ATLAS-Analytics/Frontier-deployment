@@ -50,7 +50,7 @@ spec:
               mountPath: "/Files"
 
         - name: celery-server
-          image: docker.io/atlasanalyticsservice/frontier_analytics:7295647eb37dbc8e196a8d18da2b181013a77285
+          image:  docker.io/atlasanalyticsservice/frontier_analytics:2802d0b6d13f406e1d34a59ab7281243efcfd7c9
           imagePullPolicy: Always
           resources:
             requests:
