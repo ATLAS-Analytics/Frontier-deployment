@@ -3,7 +3,7 @@ apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
 metadata:
   name: frontier-latest
-  namespace: flux-system
+  namespace: frontier-analytics
 spec:
   interval: 3m0s
   ref:
